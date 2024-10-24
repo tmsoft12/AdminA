@@ -7,6 +7,7 @@ import (
 	"rr/setup"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/logger"
 )
 
 func main() {
@@ -17,6 +18,7 @@ func main() {
 	app := fiber.New(fiber.Config{
 		BodyLimit: 500 * 1024 * 1024, // 500MB limit
 	})
+	app.Use(logger.New())
 
 	routes.AuthRoutes(app)
 	routes.SetupHome(app)

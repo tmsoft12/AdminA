@@ -66,7 +66,8 @@ func AuthRoutes(app *fiber.App) {
 	app.Post("api/admin/logout", handler.Logout)
 
 }
-func SetupHome(app *fiber.App) {
-	Home := app.Group("/home")
-	Home.Get("/", handler.GetMediaByLanguage)
-}
+
+// func SetupHome(app *fiber.App) {
+// 	Home := app.Group("/home")
+// 	Home.Get("/", handler.GetMediaByLanguage)
+// }

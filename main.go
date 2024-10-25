@@ -21,7 +21,7 @@ func main() {
 	app.Use(logger.New())
 
 	routes.AuthRoutes(app)
-	routes.SetupHome(app)
+	routes.(app)
 
 	// Setup services for different resources
 	HandlerBanner := setup.SetupServices(database.DB)

@@ -16,8 +16,8 @@ func SetupRoutes(
 	MediaHandler *handler.MediaHandler,
 	LawsHandler *handler.LawsHandler) {
 	app.Static("api/admin/uploads", "./uploads")
+	app.Get("/video/:video", utils.Play)
 
-	// General admin group with JWT protection
 	Admin := app.Group("api/admin/", middleware.JWTProtected())
 
 	// Banners routes
@@ -44,7 +44,6 @@ func SetupRoutes(
 
 	// Media routes
 	Media := Admin.Group("media")
-	Media.Get("/video/:video", utils.Play)
 	Media.Post("/", MediaHandler.Create)
 	Media.Get("/:id", MediaHandler.GetByID)
 	Media.Get("/", MediaHandler.GetPaginated)

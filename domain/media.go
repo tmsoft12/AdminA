@@ -1,7 +1,7 @@
 package domain
 
 type Media struct {
-	ID       int    `json:"id" gorm:"primaryKey;autoIncrement"`
+	ID       uint   `json:"id"`
 	Cover    string `json:"cover"`
 	Video    string `json:"video"`
 	TM_title string `json:"tm_title"`

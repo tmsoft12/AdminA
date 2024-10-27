@@ -52,3 +52,10 @@ func SetupAboutServices(db *gorm.DB) *handler.AboutHandler {
 
 	return aboutHandler
 }
+func SetupContenServices(db *gorm.DB) *handler.ContentHandler {
+	contentRepo := &repository.ContentRepo{DB: db}
+	contentService := &service.ContentService{Repo: contentRepo}
+	contentHandler := &handler.ContentHandler{Service: contentService}
+
+	return contentHandler
+}

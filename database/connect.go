@@ -32,6 +32,7 @@ func ConnectDB() {
 		&domain.User{},
 		&domain.Laws{},
 		&domain.About{},
+		&domain.Content{},
 	)
 	if err != nil {
 		log.Fatal("Failed to migrate models:", err)

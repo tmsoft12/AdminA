@@ -29,6 +29,7 @@ func main() {
 	HandlerMedia := setup.SetupMediaServices(database.DB)
 	HandlerLaws := setup.SetupLaws(database.DB)
 	HandlerAbout := setup.SetupAboutServices(database.DB)
+	HandlerContent := setup.SetupContenServices(database.DB)
 	routes.SetupRoutes(
 		app,
 		HandlerBanner,
@@ -36,7 +37,9 @@ func main() {
 		HandlerNews,
 		HandlerMedia,
 		HandlerLaws,
-		HandlerAbout)
+		HandlerAbout,
+		HandlerContent,
+	)
 	ip := os.Getenv("BASE_URL")
 	// Start server on port 5000
 	app.Listen(ip + ":5000")

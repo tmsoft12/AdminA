@@ -14,7 +14,8 @@ func SetupRoutes(
 	EmployerHandler *handler.EmployerHandler,
 	NewsHandler *handler.NewsHandler,
 	MediaHandler *handler.MediaHandler,
-	LawsHandler *handler.LawsHandler) {
+	LawsHandler *handler.LawsHandler,
+	AboutHandler *handler.AboutHandler) {
 	app.Static("api/admin/uploads", "./uploads")
 	app.Get("/video/:video", utils.Play)
 
@@ -57,6 +58,10 @@ func SetupRoutes(
 	Laws.Delete("/:id", LawsHandler.Delete)
 	Laws.Put("/:id", LawsHandler.Update)
 
+	About := Admin.Group("about")
+	About.Get("/:id", AboutHandler.GetByID)
+	About.Post("/", AboutHandler.Create)
+	About.Put("/:id", AboutHandler.Update)
 }
 
 func AuthRoutes(app *fiber.App) {

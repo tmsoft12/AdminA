@@ -52,23 +52,23 @@ func (s *EmployerService) GetByID(id uint) (*domain.Employer, error) {
 func (s *EmployerService) Delete(id uint) error {
 	return s.Repo.Delete(id)
 }
-func (s *EmployerService) Update(id uint, updatedBanner *domain.Employer) (*domain.Employer, error) {
+func (s *EmployerService) Update(id uint, updatedEmpoyer *domain.Employer) (*domain.Employer, error) {
 	existingEmployer, err := s.Repo.FindByID(id)
 	if err != nil {
 		return nil, err
 	}
 
-	if updatedBanner.Name != "" {
-		existingEmployer.Name = updatedBanner.Name
+	if updatedEmpoyer.Name != "" {
+		existingEmployer.Name = updatedEmpoyer.Name
 	}
-	if updatedBanner.Image != "" {
-		existingEmployer.Image = updatedBanner.Image
+	if updatedEmpoyer.Image != "" {
+		existingEmployer.Image = updatedEmpoyer.Image
 	}
-	if updatedBanner.Major != "" {
-		existingEmployer.Major = updatedBanner.Major
+	if updatedEmpoyer.Major != "" {
+		existingEmployer.Major = updatedEmpoyer.Major
 	}
-	if updatedBanner.Surname != "" {
-		existingEmployer.Surname = updatedBanner.Surname
+	if updatedEmpoyer.Surname != "" {
+		existingEmployer.Surname = updatedEmpoyer.Surname
 	}
 
 	if err := s.Repo.Update(id, existingEmployer); err != nil {

@@ -25,7 +25,13 @@ func ConnectDB() {
 	}
 
 	err = database.AutoMigrate(
-		&domain.Banner{}, &domain.Employer{}, &domain.News{}, &domain.Media{}, &domain.User{}, &domain.Laws{},
+		&domain.Banner{},
+		&domain.Employer{},
+		&domain.News{},
+		&domain.Media{},
+		&domain.User{},
+		&domain.Laws{},
+		&domain.About{},
 	)
 	if err != nil {
 		log.Fatal("Failed to migrate models:", err)

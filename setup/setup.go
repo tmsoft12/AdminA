@@ -45,3 +45,10 @@ func SetupLaws(db *gorm.DB) *handler.LawsHandler {
 	lawsHandler := &handler.LawsHandler{Service: lawsService}
 	return lawsHandler
 }
+func SetupAboutServices(db *gorm.DB) *handler.AboutHandler {
+	aboutRepo := &repository.AboutRepo{DB: db}
+	aboutService := &service.AboutService{Repo: aboutRepo}
+	aboutHandler := &handler.AboutHandler{Service: aboutService}
+
+	return aboutHandler
+}

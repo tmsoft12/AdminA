@@ -27,7 +27,8 @@ func (h *AboutHandler) Create(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusCreated).JSON(about)
 }
 func (h *AboutHandler) GetByID(c *fiber.Ctx) error {
-	idStr := c.Params("id")
+	// idStr := c.Params("id")
+	idStr := "1"
 	id, err := strconv.ParseUint(idStr, 10, 32)
 	if err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Nädogry ID"})
@@ -45,7 +46,8 @@ func (h *AboutHandler) GetByID(c *fiber.Ctx) error {
 }
 
 func (h *AboutHandler) Update(c *fiber.Ctx) error {
-	idStr := c.Params("id")
+	// idStr := c.Params("id")
+	idStr := "1"
 	id, err := strconv.ParseUint(idStr, 10, 32)
 	if err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Nädogry ID"})

@@ -1,7 +1,7 @@
 package domain
 
 type Content struct {
-	ID     uint   `json:"id"`
-	Top    string `json:"top"`
-	Bottom string `json:"bottom"`
+	ID       uint   `json:"id"`
+	Position string `json:"position"`
+	Content  string `json:"content"`
 }

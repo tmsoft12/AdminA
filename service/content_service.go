@@ -24,8 +24,8 @@ func (s *ContentService) Update(id uint, updatedContent *domain.Content) (*domai
 	}
 
 	// Güncelleme işlemi
-	existingContent.Top = updatedContent.Top
-	existingContent.Bottom = updatedContent.Bottom
+	existingContent.Content = updatedContent.Content
+	existingContent.Position = updatedContent.Position
 
 	if err := s.Repo.Update(id, existingContent); err != nil {
 		return nil, err

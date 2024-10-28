@@ -61,9 +61,9 @@ func SetupRoutes(
 	Laws.Put("/:id", LawsHandler.Update)
 
 	About := Admin.Group("about")
-	About.Get("/:id", AboutHandler.GetByID)
-	About.Post("/", AboutHandler.Create)
-	About.Put("/:id", AboutHandler.Update)
+	About.Get("/", AboutHandler.GetByID)
+	// About.Post("/", AboutHandler.Create)
+	About.Put("/", AboutHandler.Update)
 
 	Content := Admin.Group("content")
 	Content.Post("/", ContentHandler.Create)

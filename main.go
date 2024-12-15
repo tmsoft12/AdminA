@@ -42,5 +42,6 @@ func main() {
 	)
 	ip := os.Getenv("BASE_URL")
 	// Start server on port 5000
-	app.Listen(ip + ":5000")
+	port := os.Getenv("PORT")
+	app.Listen(ip + port)
 }

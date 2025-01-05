@@ -17,14 +17,12 @@ type NewsHandler struct {
 	Service *service.NewsService
 }
 
-// Habar döretmek üçin funksiýa
 func (h *NewsHandler) Create(c *fiber.Ctx) error {
 	var news domain.News
 	if err := c.BodyParser(&news); err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Serwerde ýalňyşlyk: Maglumatlar işlenip bilinmedi"})
 	}
 
-	// Täze faýl adyny döretmek
 	newFileName := "news_" + time.Now().Format("20060102150405")
 	imagePath, err := utils.UploadFile(c, "news", "uploads/news", newFileName)
 	if err != nil {
@@ -32,10 +30,10 @@ func (h *NewsHandler) Create(c *fiber.Ctx) error {
 	}
 	news.Image = imagePath
 
-	// Habar döretmek
 	if err := h.Service.Create(&news); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": err.Error()})
 	}
+	news.IsActive = false
 	api := "api/admin"
 	ip := os.Getenv("BASE_URL")
 	port := os.Getenv("PORT")
@@ -44,7 +42,6 @@ func (h *NewsHandler) Create(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusCreated).JSON(news)
 }
 
-// Habarlary sahypa boýunça getirmek
 func (h *NewsHandler) GetPaginated(c *fiber.Ctx) error {
 	page := c.Query("page", "1")
 	limit := c.Query("limit", "10")
@@ -80,7 +77,6 @@ func (h *NewsHandler) GetPaginated(c *fiber.Ctx) error {
 	})
 }
 
-// ID boýunça news getirmek
 func (h *NewsHandler) GetByID(c *fiber.Ctx) error {
 	idStr := c.Params("id")
 	id, err := strconv.ParseUint(idStr, 10, 32)
@@ -103,7 +99,6 @@ func (h *NewsHandler) GetByID(c *fiber.Ctx) error {
 	return c.JSON(news)
 }
 
-// news pozmak üçin funksiýa
 func (h *NewsHandler) Delete(c *fiber.Ctx) error {
 	idStr := c.Params("id")
 	id, err := strconv.ParseUint(idStr, 10, 32)
@@ -119,9 +114,6 @@ func (h *NewsHandler) Delete(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "news tapylmady"})
 	}
 
-	// newsi pozmak
-
-	// Suraty pozmak
 	if news.Image != "" {
 		t := news.Image
 		fmt.Println("Pozuljak faýl:", t)
@@ -159,23 +151,20 @@ func (h *NewsHandler) Update(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Nädogry maglumatlar"})
 	}
 
-	// Täze surat ýüklenipmi?
 	if file, err := c.FormFile("news"); err == nil && file != nil {
-		// Köne suraty pozmak
 		if news.Image != "" {
 			if err := os.Remove(news.Image); err != nil {
 				return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Köne surat pozulyp bilinmedi"})
 			}
 		}
-		// Täze surat ýüklemek
 		newFileName := fmt.Sprintf("newsUpdate_%s", time.Now().Format("20060102150405"))
 		imagePath, err := utils.UploadFile(c, "news", "uploads/news", newFileName)
 		if err != nil {
 			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Täze surat ýüklenip bilinmedi"})
 		}
 		updatedNews.Image = imagePath
+
 	} else {
-		// Täze surat ýüklenmedik bolsa, köne suraty sakla
 		updatedNews.Image = news.Image
 	}
 

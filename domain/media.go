@@ -9,4 +9,5 @@ type Media struct {
 	RU_title string `json:"ru_title"`
 	Date     string `json:"date"`
 	View     int    `json:"view"`
+	IsActive bool   `json:"isactive"`
 }

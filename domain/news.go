@@ -11,4 +11,5 @@ type News struct {
 	RU_description string `json:"ru_description"`
 	View           int    `json:"view"`
 	Date           string `json:"date"`
+	IsActive       bool   `json:"isactive"`
 }
